@@ -21,7 +21,7 @@ class GetCsvFile:
     def __init__(self, content: BytesIO):
         self.content = content
 
-    def get_content(self) -> typing.List:
+    def get_content(self) -> typing.Iterator:
         return csv.reader(codecs.iterdecode(self.content, "utf-8"))
 
 
@@ -33,11 +33,11 @@ class GetArchivedFile:
         print(self.shortcut, type(self.shortcut))
         return f"https://stooq.com/q/d/l/?s={self.shortcut.lower()}&i=d"
 
-    def get_io_content(self):
+    def get_io_content(self) -> BytesIO:
         _io_file = GetIOFile(url=self._get_url())
         return _io_file.get_content()
 
-    def get_csv_content(self):
+    def get_csv_content(self) -> typing.Iterator:
         _csv_file = GetCsvFile(content=self.get_io_content())
         return _csv_file.get_content()
 
