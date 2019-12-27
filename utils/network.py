@@ -1,27 +1,41 @@
 import codecs
 import csv
+import typing
+
 
 from io import BytesIO
 from urllib.request import urlopen
 
 
-class GetFile:
-    def __init__(self, url):
+class GetIOFile:
+    def __init__(self, url: typing.AnyStr):
         self.url = url
 
-    def as_io(self):
+    def get_content(self) -> BytesIO:
         with urlopen(self.url) as content:
+            print(content, type(content))
             return BytesIO(content.read())
 
-    def as_csv(self):
-        return csv.reader(codecs.iterdecode(self.as_io(), "utf-8"))
+
+class GetCsvFile:
+    def __init__(self, content: BytesIO):
+        self.content = content
+
+    def get_content(self) -> typing.List:
+        return csv.reader(codecs.iterdecode(self.content, "utf-8"))
 
 
 class GetArchivedFile:
-    def __init__(self, shortcut):
+    def __init__(self, shortcut: typing.AnyStr):
         self.shortcut = shortcut
-        self.url_template = f"https://stooq.com/q/d/l/?s={self.shortcut}&i=d"
-        self.content = GetFile(url=self.url_template)
 
-    def get_content(self):
-        return self.content.as_csv()
+    def _get_url(self) -> typing.AnyStr:
+        return f"https://stooq.com/q/d/l/?s={self.shortcut.lower()}&i=d"
+
+    def get_io_content(self):
+        _io_file = GetIOFile(url=self._get_url())
+        return _io_file.get_content()
+
+    def get_csv_content(self):
+        _csv_file = GetCsvFile(content=self.get_io_content())
+        return _csv_file.get_content()
