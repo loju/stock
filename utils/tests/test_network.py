@@ -1,7 +1,7 @@
 from io import BytesIO
 from unittest.mock import patch
 
-from ..network import GetIOFile, GetCsvFile, GetArchivedFile
+from ..network import GetIOFile, GetCsvFile, GetArchivedFile, GetArchivedAllFiles
 
 
 class TestGetFile:
@@ -35,3 +35,9 @@ class TestGetArchivedFile:
         arch_file = GetArchivedFile(shortcut="CDR")
         arch_file.get_csv_content()
         assert get_content.called is True
+
+
+class TestGetArchivedAllFiles:
+    def test_iterator(self):
+        get_all = GetArchivedAllFiles()
+        assert hasattr(get_all, "__init__") is True

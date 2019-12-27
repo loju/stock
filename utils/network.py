@@ -30,6 +30,7 @@ class GetArchivedFile:
         self.shortcut = shortcut
 
     def _get_url(self) -> typing.AnyStr:
+        print(self.shortcut, type(self.shortcut))
         return f"https://stooq.com/q/d/l/?s={self.shortcut.lower()}&i=d"
 
     def get_io_content(self):
@@ -39,3 +40,31 @@ class GetArchivedFile:
     def get_csv_content(self):
         _csv_file = GetCsvFile(content=self.get_io_content())
         return _csv_file.get_content()
+
+
+class GetArchivedAllFiles:
+    symbols = [
+        "ALR",
+        "CCC",
+        "CDR",
+        "CPS",
+        "DNP",
+        "JSW",
+        "KGH",
+        "LTS",
+        "LPP",
+        "MBK",
+        "OPL",
+        "PEO",
+        "PGE",
+        "PGN",
+        "PKN",
+        "PKO",
+        "PLY",
+        "PZU",
+        "SPL",
+        "TPE",
+    ]
+
+    def __iter__(self):
+        return (GetArchivedFile(shortcut=symbol) for symbol in self.symbols)
