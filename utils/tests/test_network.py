@@ -24,6 +24,10 @@ class TestGetArchivedFile:
         arch_file = GetArchivedFile(shortcut="CDR")
         assert arch_file._get_url() == "https://stooq.com/q/d/l/?s=cdr&i=d"
 
+    def test_get_shortcut(self):
+        arch_file = GetArchivedFile(shortcut="CDR")
+        assert arch_file.get_shortcut() == "CDR"
+
     @patch.object(GetIOFile, "get_content")
     def test_get_io_content(self, get_content):
         arch_file = GetArchivedFile(shortcut="CDR")

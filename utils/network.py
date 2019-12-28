@@ -30,8 +30,10 @@ class GetArchivedFile:
         self.shortcut = shortcut
 
     def _get_url(self) -> typing.AnyStr:
-        print(self.shortcut, type(self.shortcut))
         return f"https://stooq.com/q/d/l/?s={self.shortcut.lower()}&i=d"
+
+    def get_shortcut(self):
+        return self.shortcut
 
     def get_io_content(self) -> BytesIO:
         _io_file = GetIOFile(url=self._get_url())
