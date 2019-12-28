@@ -38,6 +38,6 @@ class TestGetArchivedFile:
 
 
 class TestGetArchivedAllFiles:
-    def test_iterator(self):
+    def test__iter__(self):
         get_all = GetArchivedAllFiles()
         assert hasattr(get_all, "__init__") is True

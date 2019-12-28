@@ -66,5 +66,5 @@ class GetArchivedAllFiles:
         "TPE",
     ]
 
-    def __iter__(self):
+    def __iter__(self) -> typing.Generator:
         return (GetArchivedFile(shortcut=symbol) for symbol in self.symbols)
