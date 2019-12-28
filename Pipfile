@@ -4,11 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+pandas = "*"
+matplotlib = "*"
+sklearn = "*"
 
 [dev-packages]
 conttest = "*"
 ipython = "*"
 pytest = "*"
+jupyter = "*"
 
 [requires]
 python_version = "3.7"

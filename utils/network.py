@@ -2,6 +2,7 @@ import codecs
 import csv
 import typing
 
+import pandas as pd
 
 from io import BytesIO
 from urllib.request import urlopen
@@ -25,6 +26,14 @@ class GetCsvFile:
         return csv.reader(codecs.iterdecode(self.content, "utf-8"))
 
 
+class GetDataFrame:
+    def __init__(self, content: BytesIO):
+        self.content = content
+
+    def get_content(self) -> pd.DataFrame:
+        return pd.read_csv(self.content)
+
+
 class GetArchivedFile:
     def __init__(self, shortcut: typing.AnyStr):
         self.shortcut = shortcut
@@ -42,6 +51,10 @@ class GetArchivedFile:
     def get_csv_content(self) -> typing.Iterator:
         _csv_file = GetCsvFile(content=self.get_io_content())
         return _csv_file.get_content()
+
+    def get_data_frame(self) -> typing.Iterator:
+        _data_frame = GetDataFrame(content=self.get_io_content())
+        return _data_frame.get_content()
 
 
 class GetArchivedAllFiles:
