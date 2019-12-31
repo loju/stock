@@ -31,7 +31,7 @@ class GetDataFrame:
         self.content = content
 
     def get_content(self) -> pd.DataFrame:
-        return pd.read_csv(self.content)
+        return pd.read_csv(self.content, parse_dates=['Date'])
 
 
 class GetArchivedFile:
