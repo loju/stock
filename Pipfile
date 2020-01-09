@@ -8,6 +8,7 @@ pandas = "*"
 matplotlib = "*"
 sklearn = "*"
 spyder = "*"
+xgboost = "*"
 
 [dev-packages]
 conttest = "*"
